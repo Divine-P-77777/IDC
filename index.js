@@ -28,18 +28,31 @@
 //     console.log(`Server is running on http://localhost:${PORT}`);
 // });
 const express = require('express');
+const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-require('dotenv').config(); // Load environment variables
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CORS options
+// Whitelist of allowed origins
+const whitelist = [
+    'http://localhost:5173',     // Local development
+    'https://insanedc.vercel.app' // Production frontend
+];
+
+// CORS configuration with dynamic origin checking
 const corsOptions = {
-    origin: process.env.CORS_ORIGIN || 'https://insanedc.vercel.app', // Frontend URL
-    methods: ["POST", "GET", "DELETE", "PATCH", "PUT"], // HTTP methods to allow
-    credentials: true,
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ["POST", "GET", "DELETE", "PATCH", "PUT"],
+    credentials: true, // Allow cookies/auth to be sent with requests
 };
 
 // Middleware
@@ -51,6 +64,7 @@ app.use(express.json()); // For parsing application/json
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
+
 
 // Define student schema and model
 const studentSchema = new mongoose.Schema({
