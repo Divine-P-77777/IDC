@@ -1,33 +1,4 @@
-// const express = require('express');
-// const cors = require('cors');
-// const mongoose = require('mongoose');
-// const studentRoutes = require('./routes/student'); // Student routes
-// const db = require('./firebase'); // Import the Firebase DB instance
-// const multer = require('multer');
-// const upload = multer({ dest: 'uploads/' }); // Ensure this path exists
-// require('dotenv').config(); // Load environment variables
 
-// const app = express();
-// const PORT = process.env.PORT || 3000;
-
-// // Middleware
-// app.use(cors()); // Enable CORS for all routes
-// app.use(express.json()); // for parsing application/json
-// app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-
-// // Connect to MongoDB with options
-// mongoose.connect(process.env.MONGODB_URI)
-//     .then(() => console.log('MongoDB connected'))
-//     .catch(err => console.error('MongoDB connection error:', err));
-
-// // Use student routes
-// app.use('/api', studentRoutes);
-
-// // Start server
-// app.listen(PORT, () => {
-//     console.log(`Server is running on http://localhost:${PORT}`);
-// });
-const express = require('express');
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -103,4 +74,3 @@ app.get('/', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
