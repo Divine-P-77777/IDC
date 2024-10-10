@@ -66,8 +66,8 @@ app.post('/api/student', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
 });
-app.get('/', async (req, res) => {
-   res.send("ALL IS WELL")
+app.get('/', (req, res) => {
+    res.json({ message: "ALL IS WELL" });
 });
 
 // Start server
