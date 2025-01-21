@@ -70,6 +70,12 @@ app.get('/', (req, res) => {
     res.json({ message: "ALL IS WELL" });
 });
 
+// Health API
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+});
+
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
